@@ -296,7 +296,7 @@ func (api *Api) chatMessagesStreamHandle(ctx context.Context, resp *http.Respons
 						Err: errors.New("Error unmarshalling event: " + err.Error()),
 					}
 					return
-				} else if resp.Answer == "" {
+				} else if resp.Event == "message_end" {
 					return
 				}
 				streamChannel <-resp
