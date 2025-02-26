@@ -1,3 +1,3 @@
-module github.com/KevinZhao/dify-sdk-go
+module github.com/domechn/dify-sdk-go
 
 go 1.16
