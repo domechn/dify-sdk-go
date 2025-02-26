@@ -11,12 +11,31 @@ import (
 )
 
 type ChatMessageStreamResponse struct {
-	Event          string `json:"event"`
-	TaskID         string `json:"task_id"`
-	ID             string `json:"id"`
-	Answer         string `json:"answer"`
-	CreatedAt      int64  `json:"created_at"`
-	ConversationID string `json:"conversation_id"`
+	Event  string `json:"event"`
+	TaskID string `json:"task_id"`
+	ID     string `json:"id"`
+	Answer string `json:"answer"`
+	// Metadata exists when event is "message_end"
+	Metadata       ChatMessageStreamMetadataResponse `json:"metadata"`
+	CreatedAt      int64                             `json:"created_at"`
+	ConversationID string                            `json:"conversation_id"`
+}
+
+type ChatMessageStreamMetadataResponse struct {
+	Usage struct {
+		PromptTokens        int     `json:"prompt_tokens"`
+		PromptUnitPrice     string  `json:"prompt_unit_price"`
+		PromptPriceUnit     string  `json:"prompt_price_unit"`
+		PromptPrice         string  `json:"prompt_price"`
+		CompletionTokens    int     `json:"completion_tokens"`
+		CompletionUnitPrice string  `json:"completion_unit_price"`
+		CompletionPriceUnit string  `json:"completion_price_unit"`
+		CompletionPrice     string  `json:"completion_price"`
+		TotalTokens         int     `json:"total_tokens"`
+		TotalPrice          string  `json:"total_price"`
+		Currency            string  `json:"currency"`
+		Latency             float64 `json:"latency"`
+	} `json:"usage"`
 }
 
 type ChatMessageStreamChannelResponse struct {
@@ -80,6 +99,7 @@ func (api *API) chatMessagesStreamHandle(ctx context.Context, resp *http.Respons
 				}
 				return
 			} else if resp.Event == "message_end" {
+				streamChannel <- resp
 				return
 			}
 			streamChannel <- resp
