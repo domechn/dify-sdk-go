@@ -16,6 +16,7 @@ const (
 type MessagesFeedbacksRequest struct {
 	MessageID string `json:"message_id,omitempty"`
 	Rating    string `json:"rating,omitempty"`
+	Content   string `json:"content,omitempty"`
 	User      string `json:"user"`
 }
 
