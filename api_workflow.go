@@ -60,22 +60,24 @@ type StreamingResponse struct {
 	WorkflowRunID  string `json:"workflow_run_id"`
 	SequenceNumber int    `json:"sequence_number"`
 	Data           struct {
-		ID                string                 `json:"id"`
-		WorkflowID        string                 `json:"workflow_id,omitempty"`
-		NodeID            string                 `json:"node_id,omitempty"`
-		NodeType          string                 `json:"node_type,omitempty"`
-		Title             string                 `json:"title,omitempty"`
-		Index             int                    `json:"index"`
-		Predecessor       string                 `json:"predecessor_node_id,omitempty"`
-		Inputs            []interface{}          `json:"inputs,omitempty"`
+		ID          string `json:"id"`
+		WorkflowID  string `json:"workflow_id,omitempty"`
+		NodeID      string `json:"node_id,omitempty"`
+		NodeType    string `json:"node_type,omitempty"`
+		Title       string `json:"title,omitempty"`
+		Index       int    `json:"index"`
+		Predecessor string `json:"predecessor_node_id,omitempty"`
+		// cannot be json unmarshal
+		// Inputs            []interface{}          `json:"inputs,omitempty"`
 		Outputs           map[string]interface{} `json:"outputs,omitempty"`
 		Status            string                 `json:"status,omitempty"`
 		Error             string                 `json:"error,omitempty"`
 		ElapsedTime       float64                `json:"elapsed_time,omitempty"`
 		ExecutionMetadata struct {
-			TotalTokens int     `json:"total_tokens,omitempty"`
-			TotalPrice  float64 `json:"total_price,omitempty"`
-			Currency    string  `json:"currency,omitempty"`
+			TotalTokens int `json:"total_tokens,omitempty"`
+			// cannot be json unmarshal
+			// TotalPrice  float64 `json:"total_price,omitempty"`
+			Currency string `json:"currency,omitempty"`
 		} `json:"execution_metadata,omitempty"`
 		CreatedAt  int64 `json:"created_at"`
 		FinishedAt int64 `json:"finished_at,omitempty"`
